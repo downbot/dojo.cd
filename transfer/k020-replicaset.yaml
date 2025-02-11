@@ -3,7 +3,7 @@ kind: ReplicaSet
 metadata:
   name: transfer-rs
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       dojo/app: transfer
