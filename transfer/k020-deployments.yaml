@@ -1,18 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: httpbin-dyt
+  name: httpbin-deploy
   labels:
     app: httpbin
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: httpbin
+      dojo/app: transfer
   template:
     metadata:
       labels:
         app: httpbin
+        dojo/app: transfer
     spec:
       containers:
       - name: httpbin
