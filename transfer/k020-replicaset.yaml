@@ -1,18 +1,16 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
-  name: httpbin-deploy
-  labels:
-    app: httpbin
+  name: transfer-rs
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       dojo/app: transfer
   template:
     metadata:
       labels:
-        app: httpbin
+        app: transfer
         dojo/app: transfer
     spec:
       containers:
