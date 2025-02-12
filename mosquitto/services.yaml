@@ -4,7 +4,7 @@ metadata:
   name: mosquitto-service
 spec:
   selector:
-    dojo/app: mosquitto
+    hass/app: mosquitto
   ports:
     - name: mqtt
       protocol: TCP

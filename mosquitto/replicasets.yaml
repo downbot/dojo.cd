@@ -2,17 +2,16 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: mosquitto-replicaset
-  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      dojo/app: mosquitto
+      hass/app: mosquitto
   template:
     metadata:
       labels:
         app: mosquitto
-        dojo/app: mosquitto
+        hass/app: mosquitto
     spec:
       containers:
         - name: mosquitto
