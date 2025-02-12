@@ -2,6 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: transfer-ingress
+  labels:
+    app.kubernetes.io/name: transfer
+    app.kubernetes.io/component: webserver
+    app.kubernetes.io/part-of: dojo-suite
+    app.kubernetes.io/managed-by: argocd
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
