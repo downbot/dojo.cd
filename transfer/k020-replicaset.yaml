@@ -2,6 +2,13 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: transfer-rs
+    labels:
+      app.kubernetes.io/name: transfer
+      app.kubernetes.io/instance: transfer-v1
+      app.kubernetes.io/version: "1.0.0"
+      app.kubernetes.io/component: webserver
+      app.kubernetes.io/part-of: dojo-suite
+      app.kubernetes.io/managed-by: argocd
 spec:
   replicas: 1
   selector:
@@ -12,6 +19,12 @@ spec:
       labels:
         app: transfer
         dojo/app: transfer
+        app.kubernetes.io/name: transfer
+        app.kubernetes.io/instance: transfer-v1
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/component: webserver
+        app.kubernetes.io/part-of: dojo-suite
+        app.kubernetes.io/managed-by: argocd
     spec:
       containers:
         - name: httpbin
