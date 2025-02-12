@@ -9,5 +9,5 @@ spec:
     path: transfer
     targetRevision: HEAD
   destination:
-    namespace: dojo-transfer
+    namespace: transfer
     name: dojo
