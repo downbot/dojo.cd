@@ -9,6 +9,7 @@ spec:
       hass/app: mosquitto
   template:
     metadata:
+      generateName: mosquitto-pod-
       labels:
         app: mosquitto
         hass/app: mosquitto
