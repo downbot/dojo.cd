@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mosquitto
+spec:
+  project: hass
+  destination:
+    namespace: home-assistant
+    name: dojo
+  source:
+    repoURL: https://github.com/downbot/dojo.cd.git
+    path: mosquitto
+    targetRevision: HEAD

@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: microk8s
+spec:
+  project: dojo
+  source:
+    repoURL: https://github.com/downbot/dojo.cd.git
+    path: microk8s
+    targetRevision: HEAD
+  destination:
+    name: dojo

@@ -1,8 +1,0 @@
-project: hass
-source:
-  repoURL: https://github.com/downbot/dojo.cd.git
-  path: mosquitto
-  targetRevision: HEAD
-destination:
-  namespace: home-assistant
-  name: dojo
