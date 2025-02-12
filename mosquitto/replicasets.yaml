@@ -15,8 +15,8 @@ spec:
         dojo/app: mosquitto
     spec:
       containers:
-      - name: mosquitto
-        image: eclipse-mosquitto
-        ports:
-        - containerPort: 1883
-        - containerPort: 9001
+        - name: mosquitto
+          image: eclipse-mosquitto
+          ports:
+            - containerPort: 1883
+            - containerPort: 9001

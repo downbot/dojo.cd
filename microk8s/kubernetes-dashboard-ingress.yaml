@@ -8,17 +8,17 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   rules:
-  - host: admin.dojo.telco.ar
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: kubernetes-dashboard
-            port:
-              number: 443
+    - host: admin.dojo.telco.ar
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kubernetes-dashboard
+                port:
+                  number: 443
   tls:
-  - hosts:
-    - admin.dojo.telco.ar
-    secretName: kubernetes-dashboard-certs
+    - hosts:
+        - admin.dojo.telco.ar
+      secretName: kubernetes-dashboard-certs

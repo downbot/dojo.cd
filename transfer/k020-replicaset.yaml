@@ -3,7 +3,7 @@ kind: ReplicaSet
 metadata:
   name: transfer-rs
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       dojo/app: transfer
@@ -14,7 +14,7 @@ spec:
         dojo/app: transfer
     spec:
       containers:
-      - name: httpbin
-        image: kennethreitz/httpbin
-        ports:
-        - containerPort: 80
+        - name: httpbin
+          image: kennethreitz/httpbin
+          ports:
+            - containerPort: 80

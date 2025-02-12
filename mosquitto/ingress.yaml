@@ -7,13 +7,13 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: mqtt.telco.ar
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: mosquitto-service
-            port:
-              number: 1883
+    - host: mqtt.telco.ar
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mosquitto-service
+                port:
+                  number: 1883
