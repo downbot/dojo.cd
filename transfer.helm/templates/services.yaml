@@ -1,16 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{.Release.Name}}-{{.Values.ambiente}}-service
+  name: {{ .Release.Name }}-service
   labels:
-    app: {{.Release.Name}}
-    app.kubernetes.io/name: {{.Release.Name}}
-    app.kubernetes.io/version: "v1.1"
+    app: transfer
+    transfer/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: transfer
+    app.kubernetes.io/version: "1.5"
     app.kubernetes.io/component: webserver
     app.kubernetes.io/part-of: dojo-suite
+    app.kubernetes.io/managed-by: argocd
 spec:
   selector:
-    dojo/app: {{.Release.Name}}
+    transfer/instance: {{.Release.Name}}
   ports:
     - protocol: TCP
       port: 80

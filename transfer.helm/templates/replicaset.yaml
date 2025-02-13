@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: {{ .Release.Name }}-rs
+  labels:
+    app: transfer
+    transfer/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: transfer
+    app.kubernetes.io/version: "1.5"
+    app.kubernetes.io/component: webserver
+    app.kubernetes.io/part-of: dojo-suite
+    app.kubernetes.io/managed-by: argocd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      transfer/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: transfer
+        transfer/instance: {{ .Release.Name }}
+        app.kubernetes.io/name: transfer
+        app.kubernetes.io/version: "1.5"
+        app.kubernetes.io/component: webserver
+        app.kubernetes.io/part-of: dojo-suite
+        app.kubernetes.io/managed-by: argocd
+    spec:
+      containers:
+        - name: transfer
+          image: localhost:32000/transfer:v1.5
+          ports:
+            - name: http
+              containerPort: 8080
