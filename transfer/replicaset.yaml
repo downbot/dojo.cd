@@ -31,4 +31,5 @@ spec:
         - name: httpbin
           image: localhost:32000/transfer:v1.5
           ports:
-            - containerPort: 8080
+            - name: http
+              containerPort: 8080
