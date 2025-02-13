@@ -5,7 +5,7 @@ metadata:
   labels:
     app: transfer
     app.kubernetes.io/name: transfer
-    app.kubernetes.io/instance: {{ .Release.Name }}-{{ .Values.ambiente }}
+    app.kubernetes.io/instance: {{ .Release.Name }}-{{ .Release.Namespace }}-{{ .Values.ambiente }}
     app.kubernetes.io/version: "v1"
     app.kubernetes.io/component: webserver
     app.kubernetes.io/part-of: dojo-suite
