@@ -1,0 +1,5 @@
+apiVersion: v2
+name: mi-transfer-chart
+description: A Helm chart for deploying an example application
+version: 0.1.0
+appVersion: 1.0.0
