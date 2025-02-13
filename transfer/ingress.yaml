@@ -11,6 +11,7 @@ metadata:
     app.kubernetes.io/part-of: dojo-suite
     app.kubernetes.io/managed-by: argocd
   annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
