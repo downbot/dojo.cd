@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: microk8s
 spec:
-  project: dojo
+  project: default
   source:
     repoURL: https://github.com/downbot/dojo.cd.git
     path: microk8s
