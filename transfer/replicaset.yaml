@@ -29,6 +29,6 @@ spec:
     spec:
       containers:
         - name: httpbin
-          image: kennethreitz/httpbin
+          image: registry.container-registry.svc:5000/uploadsh:v1.5.2
           ports:
             - containerPort: 80
