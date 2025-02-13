@@ -4,7 +4,7 @@ metadata:
   name: kubernetes-dashboard-ingress
   namespace: kube-system
   annotations:
-    cert-manager.io/cluster-issuer: lets-encrypt
+    cert-manager.io/cluster-issuer: lets-encrypt-staging
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
