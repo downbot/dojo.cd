@@ -29,6 +29,6 @@ spec:
     spec:
       containers:
         - name: httpbin
-          image: registry.container-registry.svc:5000/uploadsh:v1.5.2
+          image: localhost:32000/transfer:v1.5
           ports:
-            - containerPort: 80
+            - containerPort: 8080
