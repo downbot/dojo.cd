@@ -3,15 +3,14 @@ kind: Service
 metadata:
   name: {{.Release.Name}}-{{.Values.ambiente}}-service
   labels:
-    app: transfer
-    app.kubernetes.io/name: transfer
-    app.kubernetes.io/version: "v1"
-    app.kubernetes.io/component: {{.Release.Name}}-webserver-{{.Release.Namespace}}-{{.Values.ambiente}}
+    app: {{.Release.Name}}
+    app.kubernetes.io/name: {{.Release.Name}}
+    app.kubernetes.io/version: "v1.1"
+    app.kubernetes.io/component: webserver
     app.kubernetes.io/part-of: dojo-suite
-    app.kubernetes.io/managed-by: argocd
 spec:
   selector:
-    dojo/app: transfer
+    dojo/app: {{.Release.Name}}
   ports:
     - protocol: TCP
       port: 80
