@@ -12,18 +12,3 @@ spec:
       - http01:
           ingress:
             class: public
-  subject:
-    organizations:
-      - "TelcoSys"
-    organizationalunits:
-      - "PaaS"
-    countries:
-      - "AR"
-    localities:
-      - "Buenos Aires"
-    provinces:
-      - "Buenos Aires"
-    streetAddresses:
-      - "Buenos Aires"
-    postalCodes:
-      - "C1000"
