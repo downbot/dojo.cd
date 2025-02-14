@@ -13,11 +13,6 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: lets-encrypt-staging
-    cert-manager.io/subject-organizations: TelcoSys
-    cert-manager.io/subject-organizationalunits: PaaS
-    cert-manager.io/subject-countries: AR
-    cert-manager.io/subject-provinces: Buenos Aires
-    cert-manager.io/subject-localities: Buenos Aires
 spec:
   rules:
     - host: {{ .Values.hostname }}
