@@ -11,8 +11,10 @@ metadata:
     app.kubernetes.io/part-of: dojo-suite
     app.kubernetes.io/managed-by: argocd
   annotations:
-    cert-manager.io/cluster-issuer: lets-encrypt-staging
     nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: lets-encrypt-staging
+    cert-manager.io/private-key-algorithm`: Ed25519
+    cert-manager.io/common-name: transfer
 spec:
   rules:
     - host: {{ .Values.hostname }}
