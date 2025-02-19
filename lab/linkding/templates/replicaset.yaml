@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: {{ .Release.Name }}
+  name: {{.Release.Name}}
   labels:
     app: linkding
-    linkding/instance: {{ .Release.Name }}
+    linkding/instance: {{.Release.Name}}
     app.kubernetes.io/name: linkding
     app.kubernetes.io/version: "1.38"
     app.kubernetes.io/component: webserver
@@ -14,12 +14,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      linkding/instance: {{ .Release.Name }}
+      linkding/instance: {{.Release.Name}}
   template:
     metadata:
       labels:
         app: linkding
-        linkding/instance: {{ .Release.Name }}
+        linkding/instance: {{.Release.Name}}
         app.kubernetes.io/name: linkding
         app.kubernetes.io/version: "1.38"
         app.kubernetes.io/component: webserver
@@ -34,4 +34,4 @@ spec:
               containerPort: 9090
           envFrom:
             - secretRef:
-              name: {{ .Release.Name }}-env
+                name: {{.Release.Name}}-env
