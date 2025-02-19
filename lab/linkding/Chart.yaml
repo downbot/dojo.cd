@@ -1,0 +1,5 @@
+apiVersion: v2
+name: linkding
+description: A self-hosted bookmark manager designed be to be minimal, fast, and easy to set up.
+version: 0.1.0
+appVersion: 1.0.0

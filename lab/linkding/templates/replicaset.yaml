@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: linkding
+    linkding/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: linkding
+    app.kubernetes.io/version: "1.38"
+    app.kubernetes.io/component: webserver
+    app.kubernetes.io/part-of: dojo-suite
+    app.kubernetes.io/managed-by: argocd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      linkding/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: linkding
+        linkding/instance: {{ .Release.Name }}
+        app.kubernetes.io/name: linkding
+        app.kubernetes.io/version: "1.38"
+        app.kubernetes.io/component: webserver
+        app.kubernetes.io/part-of: dojo-suite
+        app.kubernetes.io/managed-by: argocd
+    spec:
+      containers:
+        - name: linkding
+          image: docker.io/sissbruecker/linkding:1.38.0-plus-alpine
+          ports:
+            - name: http
+              containerPort: 9090
+          envFrom:
+            - secretRef:
+              name: {{ .Release.Name }}-env
