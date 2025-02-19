@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: linkding
+spec:
+  project: dojo
+  destination:
+    name: dojo
+    namespace: linkding
+  source:
+    path: lab/linkding
+    repoURL: https://github.com/downbot/dojo.cd.git
+    targetRevision: HEAD
+    helm:
+      parameters:
+        - name: hostname
+          value: linkding.example.com
