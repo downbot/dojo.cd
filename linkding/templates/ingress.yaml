@@ -12,7 +12,7 @@ metadata:
     app.kubernetes.io/managed-by: argocd
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    cert-manager.io/cluster-issuer: lets-encrypt-staging
+    cert-manager.io/cluster-issuer: lets-encrypt
 spec:
   rules:
     - host: {{ .Values.hostname }}

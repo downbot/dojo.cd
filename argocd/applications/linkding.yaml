@@ -8,7 +8,7 @@ spec:
     name: dojo
     namespace: linkding
   source:
-    path: lab/linkding
+    path: linkding
     repoURL: https://github.com/downbot/dojo.cd.git
     targetRevision: HEAD
     helm:
