@@ -37,4 +37,4 @@ spec:
               name: uploads
       volumes:
         - name: uploads
-        emptyDir: {}
+          emptyDir: {}
