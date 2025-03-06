@@ -1,0 +1,5 @@
+apiVersion: v2
+name: keycloak
+description: Open-source identity and access management solution that supports single sign-on (SSO)
+version: 26.1.3
+appVersion: 1.5.0
