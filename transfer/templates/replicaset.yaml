@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: {{ .Release.Name }}-rs
+  name: {{ .Release.Name }}
   labels:
     app: transfer
     transfer/instance: {{ .Release.Name }}
