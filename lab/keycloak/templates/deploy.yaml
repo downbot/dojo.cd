@@ -42,7 +42,12 @@ spec:
           ports:
             - name: http
               containerPort: 8080
-          #readinessProbe:
-          #  httpGet:
-          #    path: /health/ready
-          #    port: 9000
+              protocol: TCP
+            - name: health
+              containerPort: 9000
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 9000
+              scheme: HTTP
