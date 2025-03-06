@@ -21,3 +21,9 @@ buildah push --tls-verify=false localhost/alpineph localhost:32000/alpineph
 ```bash
 kubectl debug -n <namespace> -it pod/<pod-name> --image=localhost:32000/alpineph --profile=general
 ```
+
+#### Reattach ephemeral container
+
+```bash
+kubectl attach <pod-name> -c <debug-container-name> -it
+```
