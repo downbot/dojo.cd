@@ -2,10 +2,13 @@ apiVersion: v1
 data:
   config.toml: |
     [[runners]]
-      name = "gitlab-runner"
+      name = "gitlab-runner-dojo"
       url = "https://gitlab.com"
+      shell = "bash"
       executor = "kubernetes"
       [runners.kubernetes]
+        image = "alpine"
+        namespace = "gitlab-runner"
         [runners.kubernetes.pod_security_context]
           run_as_non_root = true
           run_as_user = 1000
