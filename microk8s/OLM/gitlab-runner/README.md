@@ -61,4 +61,6 @@ To use a different version of **GitLab Runner** change the [`runnerImage` and `h
 
 ## Full documentation
 
-Visit [Install GitLab Runner Operator](https://docs.gitlab.com/runner/install/operator.html)
+- [Install GitLab Runner Operator](https://docs.gitlab.com/runner/install/operator.html)
+- [Configurating Runner Operator](https://docs.gitlab.com/runner/configuration/configuring_runner_operator/)
+

@@ -1,0 +1,10 @@
+apiVersion: apps.gitlab.com/v1beta2
+kind: Runner
+metadata:
+  name: gitlab-runner-dojo
+  namespace: gitlab-runner
+spec:
+  gitlabUrl: https://gitlab.com
+  token: gitlab-runner-dojo-secret
+  config: gitlab-runner-dojo-config
+  tags: dojo
