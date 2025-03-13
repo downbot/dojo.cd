@@ -7,7 +7,7 @@ data:
       shell = "bash"
       executor = "kubernetes"
       [runners.kubernetes]
-        image = "alpine"
+        image = "registry.access.redhat.com/ubi9/ubi-minimal:latest"
         namespace = "gitlab-runner"
         [runners.kubernetes.pod_security_context]
           run_as_non_root = true
