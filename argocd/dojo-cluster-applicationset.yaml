@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: dojo-cluster
+spec:
+  generators:
+    - list:
+        elements:
+          - name: linkding
+            namespace: linkding-auto
+            hostname: linkding.example.com
+          - name: transfer
+            namespace: transfer-auto
+            hostname: transfer.example.com
+  template:
+    metadata:
+      name: '{{name}}-cloud'
+    spec:
+      project: default
+      destination:
+        name: dojo
+        namespace: '{{namespace}}'
+      source:
+        path: '{{name}}'
+        repoURL: https://github.com/downbot/dojo.cd.git
+        targetRevision: HEAD
+        helm:
+          parameters:
+            - name: hostname
+              value: '{{hostname}}'

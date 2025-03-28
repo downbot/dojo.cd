@@ -4,7 +4,7 @@ metadata:
   name: transfer
   namespace: argocd
 spec:
-  project: dojo
+  project: default
   source:
     repoURL: https://github.com/downbot/dojo.cd.git
     path: transfer
