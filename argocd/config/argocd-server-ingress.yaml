@@ -4,13 +4,17 @@ metadata:
   name: argocd-server-ingress
   namespace: argocd
   annotations:
-    cert-manager.io/cluster-issuer: lets-encrypt
+    cert-manager.io/cluster-issuer: lets-encrypt-staging
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/service.serversscheme: https
+    traefik.ingress.kubernetes.io/service.serverstransport: argocd-backend-untrusted-tls@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: kube-public-redirect-https@kubernetescrd
 spec:
-  ingressClassName: nginx
   rules:
-    - host: argo.dojo.telco.ar
+    - host: argo.dojo.${DOMAIN}
       http:
         paths:
           - path: /
@@ -22,5 +26,5 @@ spec:
                   name: https
   tls:
     - hosts:
-        - argo.dojo.telco.ar
+        - argo.dojo.${DOMAIN}
       secretName: argocd-server-ingress-tls
