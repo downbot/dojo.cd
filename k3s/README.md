@@ -5,8 +5,10 @@ Installation
 ------------
 
 ```bash
-curl -sfL https://get.k3s.io | sh -
+curl -sfL https://get.k3s.io | sh - --disable-helm-controller --disable-cloud-controller  --cluster-domain dojo.zulu.ar --tls-san api-server --tls-san api-server.vaquita-morray.ts.net
 ```
+
+/etc/systemd/system/k3s.service
 
 export dojocd=~/REPO/dojo.cd   # path to repo
 
@@ -64,4 +66,16 @@ kubectl get csv -n operators # watch your operator come up
 kubectl create -f $dojocd/argocd/config/argocd-instance.yaml
 
 cat $dojocd/argocd/config/traefik-ingress-routes.yaml | envsubst | kubectl apply -f-  # create traefik ingress routes
+
+oc extract --to=- secrets/argocd-cluster -n argocd  # Get admin password
 ```
+
+Tailscale VPN
+-------------
+
+```bash
+kubectl apply -f $dojocd/cluster/tailscale/operator.yaml
+
+kubectl -n default annotate svc kubernetes tailscale.com/expose=true tailscale.com/hostname=api-server
+```
+

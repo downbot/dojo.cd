@@ -3,16 +3,17 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: dojo-cluster
+  namespace: argocd
 spec:
   generators:
     - list:
         elements:
           - name: linkding
-            namespace: linkding-auto
-            hostname: linkding.example.com
+            namespace: linkding
+            hostname: bm.zulu.ar
           - name: transfer
-            namespace: transfer-auto
-            hostname: transfer.example.com
+            namespace: transfer
+            hostname: up.zulu.ar
   template:
     metadata:
       name: '{{name}}-cloud'
