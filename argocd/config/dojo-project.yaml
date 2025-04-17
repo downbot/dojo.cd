@@ -1,15 +1,14 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: dojo-project
+  name: dojo
   namespace: argocd
 spec:
   description: "Dojo Cluster Project"
   sourceRepos:
     - https://github.com/downbot/dojo.cd.git
   destinations:
-    - namespace: '*'
+    - name: dojo
+      namespace: '*'
       server: https://kubernetes.default.svc
-  clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'

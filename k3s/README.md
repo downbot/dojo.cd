@@ -10,6 +10,7 @@ Install Debian 12
 apt update
 apt upgrade -y
 apt install curl git -y
+apt install yamllint -y # optional
 ```
 
 Install k3s
@@ -31,27 +32,17 @@ Pull Repo
 
 ```bash
 su - kube
+## Create o restore ssh key
 git clone git@github.com:downbot/dojo.cd.git dojocd
 cd dojocd
 echo -e "\nexport dojocd=`pwd`\n" | tee -a ~/.bashrc
 bash
 ```
+
 export DOMAIN=$(hostname -d)
 export DOMAIN=zulu.ar  # $(hostname -d)
 
-```bash
-su - kube
-```
-```bash
-```
-```bash
-```
-```bash
-```
-/etc/systemd/system/k3s.service
-
-
-export DOMAIN=$(hostname -d)
+`/etc/systemd/system/k3s.service`
 
 
 #### Ingress customization
@@ -90,18 +81,27 @@ cat $dojocd/k3s/cert-manager-cluster-issuer-staging.yaml | envsubst | kubectl ap
 
 ### ArgoCD
 
+Inatall ArgoCD
 
 ```bash
 kubectl create -f https://operatorhub.io/install/argocd-operator.yaml
 
 kubectl get csv -n operators # watch your operator come up
 
-kubectl create -f $dojocd/argocd/config/argocd-instance.yaml
+kubectl create -f $dojocd/argocd/config/argocd-instance.yaml  ## require operator to install crd
 
 cat $dojocd/argocd/config/traefik-ingress-routes.yaml | envsubst | kubectl apply -f-  # create traefik ingress routes
 
-oc extract --to=- secrets/argocd-cluster -n argocd  # Get admin password
+oc extract --to=- secrets/argocd-cluster -n argocd  # Get admin password with oc
+kubectl get secrets/argocd-cluster -n argocd -o jsonpath='{.data.admin\.password}' | base64 -d
 ```
+
+Configure ArgoCD
+
+```bash
+kubectl apply -f $dojocd/argocd/config/dojo-project.yaml
+```
+
 
 Tailscale VPN
 -------------
