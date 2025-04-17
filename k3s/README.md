@@ -4,25 +4,58 @@ k3s Lightweight Kubernetes
 Installation
 ------------
 
+Install Debian 12
+
 ```bash
-curl -sfL https://get.k3s.io | sh - --disable-helm-controller --disable-cloud-controller  --cluster-domain dojo.zulu.ar --tls-san api-server --tls-san api-server.vaquita-morray.ts.net
+apt update
+apt upgrade -y
+apt install curl git -y
 ```
 
-/etc/systemd/system/k3s.service
+Install k3s
 
-export dojocd=~/REPO/dojo.cd   # path to repo
+```bash
+curl -sfL https://get.k3s.io | sh -s - --disable-cloud-controller --cluster-domain zulu.ar \
+     --tls-san api-server --tls-san api-server.vaquita-morray.ts.net
+```
+
+Create user
+
+
+```bash
+useradd -m -s /bin/bash kube
+install -D --mode 600 <(kubectl config view --raw) /home/kube/.kube/config
+```
+
+Pull Repo
+
+```bash
+su - kube
+git clone git@github.com:downbot/dojo.cd.git dojocd
+cd dojocd
+echo -e "\nexport dojocd=`pwd`\n" | tee -a ~/.bashrc
+bash
+```
+export DOMAIN=$(hostname -d)
+export DOMAIN=zulu.ar  # $(hostname -d)
+
+```bash
+su - kube
+```
+```bash
+```
+```bash
+```
+```bash
+```
+/etc/systemd/system/k3s.service
 
 
 export DOMAIN=$(hostname -d)
 
-Create a public ingress class
-kubectl apply -f $dojocd/k3s/public-ingressclass.yaml
-
-
 
 #### Ingress customization
-oc apply -f $dojocd/k3s/traefik/serverstransport-backend-untrusted-tls.yaml
-oc apply -f $dojocd/k3s/traefik/traefik-https-redirect-middleware.yaml
+kubectl apply -f $dojocd/k3s/traefik/serverstransport-backend-untrusted-tls.yaml
 
 
 Operator Lifecycle Manager (OLM)
