@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{.Release.Name}}-config"
+data:
+  UPLOAD_URL_BASE: "https://{{ .Values.hostname }}/"
+  UPLOAD_APP_NAME: "transfer"
+  UPLOAD_APP_TITLE: "⮬ransfer ⛗"
+  UPLOAD_APP_DESC: "Easy and fast file sharing from Web and command-line"
+  UPLOAD_AUTHOR_NAME: "Admin"
+  UPLOAD_AUTHOR_LINK: "https://gitlab.com/CloudNativeApps/transfer.git"

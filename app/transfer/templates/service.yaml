@@ -1,10 +1,11 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-service
+  name: "{{.Release.Name}}-service"
   labels:
     app: transfer
-    transfer/instance: {{ .Release.Name }}
+    transfer/instance: "{{.Release.Name}}"
     app.kubernetes.io/name: transfer
     app.kubernetes.io/version: "1.5"
     app.kubernetes.io/component: webserver
@@ -12,7 +13,7 @@ metadata:
     app.kubernetes.io/managed-by: argocd
 spec:
   selector:
-    transfer/instance: {{.Release.Name}}
+    transfer/instance: "{{.Release.Name}}"
   ports:
     - name: http
       protocol: TCP

@@ -1,10 +1,11 @@
+---
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: {{ .Release.Name }}
+  name: "{{.Release.Name}}"
   labels:
     app: transfer
-    transfer/instance: {{ .Release.Name }}
+    transfer/instance: "{{.Release.Name}}"
     app.kubernetes.io/name: transfer
     app.kubernetes.io/version: "1.5"
     app.kubernetes.io/component: webserver
@@ -14,12 +15,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      transfer/instance: {{ .Release.Name }}
+      transfer/instance: "{{.Release.Name}}"
   template:
     metadata:
       labels:
         app: transfer
-        transfer/instance: {{ .Release.Name }}
+        transfer/instance: "{{.Release.Name}}"
         app.kubernetes.io/name: transfer
         app.kubernetes.io/version: "1.5"
         app.kubernetes.io/component: webserver
@@ -28,13 +29,17 @@ spec:
     spec:
       containers:
         - name: transfer
-          image: localhost:32000/transfer:v1.5
+          image: ghcr.io/downbot/uploadsh:v1.5
+          envFrom:
+            - configMapRef:
+                name: "{{.Release.Name}}-config"
           ports:
             - name: http
               containerPort: 8080
           volumeMounts:
-            - mountPath: /usr/src/app/uploads
-              name: uploads
+            - name: uploads
+              mountPath: /usr/src/app/uploads
       volumes:
         - name: uploads
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: "{{.Release.Name}}-files-pvc"
