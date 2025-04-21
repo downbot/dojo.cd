@@ -26,6 +26,15 @@ Create user
 ```bash
 useradd -m -s /bin/bash kube
 install -D --mode 600 <(kubectl config view --raw) /home/kube/.kube/config
+cat <<EoF >> /home/kube/.bashrc
+###################################
+export dojocd=/home/kube/dojocd
+export DOMAIN=zulu.ar
+export DOMAIN_TSNET=your-domain.ts.net
+export INGRESSCLASS=traefik
+alias kc='kubectl'
+###################################
+EoF
 ```
 
 Pull Repo
@@ -33,16 +42,9 @@ Pull Repo
 ```bash
 su - kube
 ## Create o restore ssh key
-git clone git@github.com:downbot/dojo.cd.git dojocd
-cd dojocd
-echo -e "\nexport dojocd=`pwd`\n" | tee -a ~/.bashrc
-bash
+git clone git@github.com:downbot/dojo.cd.git ${dojocd:?define repo path}
+cd $dojocd
 ```
-
-export DOMAIN=$(hostname -d)
-export DOMAIN=zulu.ar  # $(hostname -d)
-
-`/etc/systemd/system/k3s.service`
 
 
 #### Ingress customization
@@ -75,8 +77,8 @@ Operators
 kubectl create -f https://operatorhub.io/install/cert-manager.yaml
 
 # Create Cluster Issuer
-cat $dojocd/k3s/cert-manager-cluster-issuer.yaml         | envsubst | kubectl apply -f-
-cat $dojocd/k3s/cert-manager-cluster-issuer-staging.yaml | envsubst | kubectl apply -f-
+cat $dojocd/operators/cert-manager/cluster-issuer.yaml         | envsubst | kubectl apply -f-
+cat $dojocd/operators/cert-manager/cluster-issuer-staging.yaml | envsubst | kubectl apply -f-
 ```
 
 ### ArgoCD
