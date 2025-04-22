@@ -60,8 +60,7 @@ curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releas
 ```
 
 ```bash
-export dojocdpath=~/dojocd
-OLMinstall=$dojocdpath/k3s/OLM/install.sh
+OLMinstall=$dojocd/engine/k3s/OLM/install.sh
 
 curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.31.0/install.sh -o $OLMinstall
 
@@ -77,8 +76,8 @@ Operators
 kubectl create -f https://operatorhub.io/install/cert-manager.yaml
 
 # Create Cluster Issuer
-cat $dojocd/operators/cert-manager/cluster-issuer.yaml         | envsubst | kubectl apply -f-
-cat $dojocd/operators/cert-manager/cluster-issuer-staging.yaml | envsubst | kubectl apply -f-
+cat $dojocd/operator/cert-manager/cluster-issuer.yaml         | envsubst | kubectl apply -f-
+cat $dojocd/operator/cert-manager/cluster-issuer-staging.yaml | envsubst | kubectl apply -f-
 ```
 
 ### ArgoCD
