@@ -13,7 +13,7 @@ spec:
     helm:
       parameters:
         - name: hostname
-          value: linkding.example.com
+          value: bm.${DOMAIN}
   destination:
     namespace: linkding
     server: https://kubernetes.default.svc
