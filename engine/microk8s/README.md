@@ -106,7 +106,7 @@ kubectl get csv -n operators -w # watch operator come up
 
 kubectl create -f $dojocd/operator/argocd/argocd-instance.yaml ## require operator to install crd
 
-cat $dojocd/operator/argocd/config/traefik-ingress-routes.yaml | envsubst | kubectl apply -f-  # create traefik ingress routes
+cat $dojocd/operator/argocd/argocd-ingress-nginx.yaml | envsubst | kubectl apply -f-  # create ingress routes
 
 oc extract --to=- secrets/argocd-cluster -n argocd  # Get admin password with oc
 kubectl get secrets/argocd-cluster -n argocd -o jsonpath='{.data.admin\.password}' | base64 -d
@@ -115,16 +115,22 @@ kubectl get secrets/argocd-cluster -n argocd -o jsonpath='{.data.admin\.password
 Configure ArgoCD
 
 ```bash
-kubectl apply -f $dojocd/argocd/config/dojo-project.yaml
+kubectl apply -f $dojocd/operator/argocd/config/dojo-project.yaml
 ```
 
 
 Tailscale VPN
 -------------
 
-```bash
-kubectl apply -f $dojocd/cluster/tailscale/operator.yaml
+Install Tailscale operator
 
+```bash
+kubectl apply -f $dojocd/operator/tailscale/install.yaml
+```
+
+Expose API server vía VPN
+
+```bash
 kubectl -n default annotate svc kubernetes tailscale.com/expose=true tailscale.com/hostname=api-server
 ```
 

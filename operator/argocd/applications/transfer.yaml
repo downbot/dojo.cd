@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/downbot/dojo.cd.git
-    path: transfer
+    path: app/transfer
     targetRevision: HEAD
     helm:
       parameters:
@@ -15,4 +15,7 @@ spec:
           value: transfer.example.com
   destination:
     namespace: transfer
-    name: dojo
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
