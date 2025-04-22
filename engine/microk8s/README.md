@@ -1,40 +1,57 @@
-k3s Lightweight Kubernetes
-==========================
+microk8s Lightweight Kubernetes
+===============================
 
 Installation
 ------------
 
-Install Debian 12
+Install Ubuntu 24.04
 
 ```bash
 apt update
 apt upgrade -y
-apt install curl git -y
+apt install git -y
 apt install yamllint -y # optional
 ```
 
-Install Rancher K3s
+Install MicroK8s
 
 ```bash
-curl -sfL https://get.k3s.io | sh -s - --disable-cloud-controller --cluster-domain zulu.ar \
-     --tls-san api-server --tls-san api-server.vaquita-morray.ts.net
+snap install microk8s --classic --channel=1.32/stable
+microk8s status --wait-ready
+```
+
+Enable addons
+
+```bash 
+microk8s enable ingress
+microk8s enable hostpath-storage
 ```
 
 Create user
 
 
 ```bash
-useradd -m -s /bin/bash kube
-install -D --mode 600 <(kubectl config view --raw) /home/kube/.kube/config
+useradd -m -s /bin/bash -G microk8s kube
+
 cat <<EoF >> /home/kube/.bashrc
 ###################################
 export dojocd=/home/kube/dojocd
 export DOMAIN=zulu.ar
 export DOMAIN_TSNET=your-domain.ts.net
-export INGRESSCLASS=traefik
-alias kc='kubectl'
+export INGRESSCLASS=public
+alias kubectl='microk8s kubectl'
+alias kc='microk8s kubectl'
 ###################################
 EoF
+```
+
+```bash
+cat <<EoF > /usr/local/bin/kubectl
+#!/bin/sh
+exec /snap/bin/microk8s kubectl "\$@"
+EoF
+
+chmod a+x /usr/local/bin/kubectl
 ```
 
 Pull Repo
@@ -45,10 +62,6 @@ su - kube
 git clone git@github.com:downbot/dojo.cd.git ${dojocd:?define repo path}
 cd $dojocd
 ```
-
-
-#### Ingress customization
-kubectl apply -f $dojocd/k3s/traefik/serverstransport-backend-untrusted-tls.yaml
 
 
 Operator Lifecycle Manager (OLM)
@@ -73,7 +86,9 @@ Operators
 ### cert-manager
 
 ```bash
-kubectl create -f https://operatorhub.io/install/cert-manager.yaml
+kubectl create -f $dojocd/operator/cert-manager/subscription.yaml
+
+kubectl get csv -n operators -w # watch operator come up 
 
 # Create Cluster Issuer
 cat $dojocd/operator/cert-manager/cluster-issuer.yaml         | envsubst | kubectl apply -f-
@@ -85,13 +100,13 @@ cat $dojocd/operator/cert-manager/cluster-issuer-staging.yaml | envsubst | kubec
 Inatall ArgoCD
 
 ```bash
-kubectl create -f https://operatorhub.io/install/argocd-operator.yaml
+kubectl create -f $dojocd/operator/argocd/subscription.yaml
 
-kubectl get csv -n operators # watch your operator come up
+kubectl get csv -n operators -w # watch operator come up
 
-kubectl create -f $dojocd/argocd/config/argocd-instance.yaml  ## require operator to install crd
+kubectl create -f $dojocd/operator/argocd/argocd-instance.yaml ## require operator to install crd
 
-cat $dojocd/argocd/config/traefik-ingress-routes.yaml | envsubst | kubectl apply -f-  # create traefik ingress routes
+cat $dojocd/operator/argocd/config/traefik-ingress-routes.yaml | envsubst | kubectl apply -f-  # create traefik ingress routes
 
 oc extract --to=- secrets/argocd-cluster -n argocd  # Get admin password with oc
 kubectl get secrets/argocd-cluster -n argocd -o jsonpath='{.data.admin\.password}' | base64 -d
