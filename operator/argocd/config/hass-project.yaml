@@ -2,10 +2,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: dojo
+  name: hass
   namespace: argocd
 spec:
-  description: "Dojo Cluster Project"
+  description: "Home Assistant"
   sourceRepos:
     - https://github.com/downbot/dojo.cd.git
   destinations:

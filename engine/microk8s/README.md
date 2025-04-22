@@ -118,6 +118,12 @@ Configure ArgoCD
 kubectl apply -f $dojocd/operator/argocd/config/dojo-project.yaml
 ```
 
+Deploy Applications
+
+```bash
+kubectl apply -f $dojocd/operator/argocd/config/dojo-cluster-applicationset.yaml
+```
+
 
 Tailscale VPN
 -------------

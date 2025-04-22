@@ -1,17 +1,22 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: linkding
+  namespace: argocd
 spec:
   project: dojo
-  destination:
-    name: dojo
-    namespace: linkding
   source:
-    path: linkding
     repoURL: https://github.com/downbot/dojo.cd.git
+    path: app/linkding
     targetRevision: HEAD
     helm:
       parameters:
         - name: hostname
           value: linkding.example.com
+  destination:
+    namespace: linkding
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

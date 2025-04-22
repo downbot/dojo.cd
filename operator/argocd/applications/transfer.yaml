@@ -1,10 +1,11 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: transfer
   namespace: argocd
 spec:
-  project: default
+  project: dojo
   source:
     repoURL: https://github.com/downbot/dojo.cd.git
     path: app/transfer

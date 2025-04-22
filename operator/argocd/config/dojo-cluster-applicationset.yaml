@@ -20,13 +20,17 @@ spec:
     spec:
       project: default
       destination:
-        name: dojo
         namespace: '{{namespace}}'
+        server: https://kubernetes.default.svc
       source:
-        path: '{{name}}'
+        path: 'app/{{name}}'
         repoURL: https://github.com/downbot/dojo.cd.git
         targetRevision: HEAD
         helm:
           parameters:
             - name: hostname
               value: '{{hostname}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+...
